@@ -104,8 +104,22 @@ class _TaskListScreenState extends State<TaskListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tugas')), // Tambahan opsional agar ada judul di atas
-      body: _tugas == null ? _tampilanMemuat() : _tampilanDaftar(_tugas!),
+      appBar: AppBar(
+        title: const Text('Tugas'),
+        // 1. Menggunakan _sedangMenyimpan untuk memunculkan loading bar saat proses simpan
+        bottom: _sedangMenyimpan
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(4.0),
+                child: LinearProgressIndicator(),
+              )
+            : null,
+      ),
+      // 2. Menggunakan _error untuk menampilkan pesan eror di layar jika gagal memuat data
+      body: _error != null
+          ? Center(child: Text('Gagal memuat tugas:\n$_error', textAlign: TextAlign.center))
+          : _tugas == null
+              ? _tampilanMemuat()
+              : _tampilanDaftar(_tugas!),
     );
   }
 

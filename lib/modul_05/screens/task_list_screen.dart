@@ -99,12 +99,47 @@ class _TaskListScreenState extends State<TaskListScreen> {
     return s.startsWith('Exception: ') ? s.substring('Exception: '.length) : s;
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tugas')),
-      body: _tugas == null ? _tampilanMemuat() : _tampilanDaftar(_tugas!),
-      // TODO: Nanti FloatingActionButton untuk menambah tugas bisa diletakkan di sini
+      appBar: AppBar(
+        title: const Text('Tugas'),
+        bottom: _sedangMenyimpan
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(4.0),
+                child: LinearProgressIndicator(),
+              )
+            : null,
+      ),
+      body: _error != null
+          ? Center(child: Text('Gagal memuat tugas:\n$_error', textAlign: TextAlign.center))
+          : _tugas == null
+              ? _tampilanMemuat()
+              : _tugas!.isEmpty
+                  ? const Center(child: Text('Belum ada tugas. Silakan tambah tugas baru!'))
+                  : _tampilanDaftar(_tugas!),
+      
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 1. Ambil data tugas lama, jika null jadikan list kosong
+          final List<Task> daftarBaru = List<Task>.from(_tugas ?? []);
+          
+          // 2. Tambahkan tugas baru dengan ID unik berdasarkan waktu
+          daftarBaru.add(
+            Task(
+              id: 'T${DateTime.now().millisecondsSinceEpoch}',
+              title: 'Tugas Baru #${daftarBaru.length + 1}',
+              course: 'Pemrograman Mobile',
+              createdAt: DateTime.now().toIso8601String(),
+            ),
+          );
+          
+          // 3. Simpan perubahan menggunakan fungsi penyimpanan yang sudah ada
+          _simpanDaftar(daftarBaru, pesan: 'Tugas berhasil ditambahkan');
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 

@@ -23,10 +23,27 @@ class TaskTile extends StatelessWidget {
             decoration: task.done ? TextDecoration.lineThrough : null,
           ),
         ),
-        subtitle: Row(
-          children: <Widget>[
-            Text(task.id), 
-            Text(task.course),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: <Widget>[
+                Text(task.id),
+                const SizedBox(width: 8),
+                Text(task.course),
+              ],
+            ),
+            if (tanggal != null)
+              Row(
+                children: [
+                  Icon(Icons.access_time, size: 14, color: warna.primary),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${tanggal.day}/${tanggal.month}/${tanggal.year}',
+                    style: TextStyle(color: warna.primary, fontSize: 12),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. Tambahkan import 
 import 'modul_02/academic_dashboard_screen.dart';
 import 'modul_04/screens/announcement_list_screen.dart';
 import 'modul_04/services/announcement_api.dart';
+import 'modul_05/screens/task_list_screen.dart';
 
 const bool kModeSimulasi = bool.fromEnvironment('SIMULASI');
 
@@ -219,6 +220,30 @@ class ProfileScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.list),
                   label: const Text('Lihat Daftar Pengumuman'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0284C7),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ),
+                            const SizedBox(height: 12),
+
+              // TOMBOL 4: Navigasi Pindah ke Daftar Tugas (Modul 05)
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TaskListScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.checklist_rounded),
+                  label: const Text('Buka Daftar Tugas'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0284C7),
                     foregroundColor: Colors.white,
