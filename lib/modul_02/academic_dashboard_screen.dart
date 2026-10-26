@@ -5,6 +5,7 @@ import 'widgets/kartu_matakuliah.dart';
 import 'widgets/header_banner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../modul_03/screens/krs_list_screen.dart';
+import '../modul_06/services/sesi_memori.dart';
 
 class AcademicDashboardScreen extends StatefulWidget {
   const AcademicDashboardScreen({super.key});
@@ -54,6 +55,20 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
                   ),
                 );
               },
+            ),
+
+            IconButton(
+              icon: const Icon(Icons.logout_rounded), 
+              tooltip: 'Keluar Sesi', onPressed: () {
+                // Hapus sesi di memori 
+                SesiMemori.hapus(); 
+                
+                // Tampilkan pesan 
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Berhasil keluar dari sesi.')),
+                );
+                Navigator.pop(context);
+              }
             ),
 
             IconButton(

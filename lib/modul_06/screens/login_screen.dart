@@ -3,6 +3,7 @@ import '../services/auth_api.dart';
 import '../services/sesi_memori.dart';
 import '../widgets/field_kata_sandi.dart';
 import '../widgets/kartu_sesi.dart';
+import '../../modul_02/academic_dashboard_screen.dart';
 
 enum StatusAuth { memeriksa, keluar, memproses, masuk, gagal }
 
@@ -157,6 +158,32 @@ class _LoginScreenState extends State<LoginScreen> {
               sekarang: DateTime.now(),
               onKeluar: _prosesLogout,
             ),
+            const SizedBox(height: 16), SizedBox(
+              width: double.infinity, 
+              height: 48, 
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => const AcademicDashboardScreen(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0284C7), 
+                  foregroundColor: Colors.white, 
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: const Icon(Icons.dashboard_rounded), 
+                label: const Text(
+                  'Buka Dashboard Akademik', 
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                )
+              )
+            )
           ],
         ),
       );

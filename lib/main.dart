@@ -4,6 +4,7 @@ import 'modul_02/academic_dashboard_screen.dart';
 import 'modul_04/screens/announcement_list_screen.dart';
 import 'modul_04/services/announcement_api.dart';
 import 'modul_05/screens/task_list_screen.dart';
+import 'modul_06/screens/login_screen.dart';
 
 const bool kModeSimulasi = bool.fromEnvironment('SIMULASI');
 
@@ -11,24 +12,24 @@ void main() {
   // 2. Bungkus runApp dengan ProviderScope di titik paling atas aplikasi
   runApp(
     const ProviderScope(
-      child: PoliwangiProfileApp(),
+      child: MyApp(),
     ),
   );
 }
 
-class PoliwangiProfileApp extends StatelessWidget {
-  const PoliwangiProfileApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Profil Mahasiswa TRPL',
+      title: 'Aplikasi Poliwangi',
       theme: ThemeData(
         colorSchemeSeed: const Color(0xFF0284C7),
         useMaterial3: true,
       ),
-      home: const ProfileScreen(),
+      home: const LoginScreen(),
     );
   }
 }

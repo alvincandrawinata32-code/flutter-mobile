@@ -88,7 +88,7 @@ class SesiPengguna {
     Duration(hours: 2), 
     DateTime? sekarang,
   }) {
-    final DateTime mulai = sekarang ?? DateTime(2026, 9, 21, 8, 0);
+    final DateTime mulai = sekarang ?? DateTime.now();
     return SesiPengguna(
       token: token, 
       email: email, 
