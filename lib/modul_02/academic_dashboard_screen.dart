@@ -6,6 +6,7 @@ import 'widgets/header_banner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../modul_03/screens/krs_list_screen.dart';
 import '../modul_06/services/sesi_memori.dart';
+import '../modul_06/screens/login_screen.dart';
 
 class AcademicDashboardScreen extends StatefulWidget {
   const AcademicDashboardScreen({super.key});
@@ -67,7 +68,10 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Berhasil keluar dari sesi.')),
                 );
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context, MaterialPageRoute(builder: (context) => const LoginScreen()), 
+                  (route) => false,
+                );
               }
             ),
 

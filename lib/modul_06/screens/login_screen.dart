@@ -4,6 +4,7 @@ import '../services/sesi_memori.dart';
 import '../widgets/field_kata_sandi.dart';
 import '../widgets/kartu_sesi.dart';
 import '../../modul_02/academic_dashboard_screen.dart';
+import '../../main.dart';
 
 enum StatusAuth { memeriksa, keluar, memproses, masuk, gagal }
 
@@ -134,6 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // 2. STATE MASUK (Sesi Aktif Ditemukan / Beranda Mahasiswa)
     if (_status == StatusAuth.masuk && SesiMemori.adaSesi) {
+      final sesi = SesiMemori.sesi!; 
+      final isMahasiswa = sesi.peran == 'mahasiswa';
       return SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -166,7 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.push(
                     context, 
                     MaterialPageRoute(
-                      builder: (context) => const AcademicDashboardScreen(),
+                      builder: (context) => isMahasiswa ? const ProfileScreen()
+                      : const AcademicDashboardScreen(),
                     ),
                   );
                 },
@@ -177,10 +181,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                icon: const Icon(Icons.dashboard_rounded), 
-                label: const Text(
-                  'Buka Dashboard Akademik', 
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                icon: Icon(
+                  isMahasiswa ? Icons.person_rounded : Icons.dashboard_rounded
+                ), 
+                label: Text( 
+                  isMahasiswa ? 'Buka Profil Mahasiswa' : 'Buka Dashboard Akademik', 
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 )
               )
             )
